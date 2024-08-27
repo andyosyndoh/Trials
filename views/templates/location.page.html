@@ -1,0 +1,25 @@
+{{template "base" . }} {{define "css"}} 
+<link
+rel="stylesheet"
+href="/static/styles/about.css"
+/>
+{{end}} {{define "title"}} About {{end}} {{define "content"}} 
+<div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>Locations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Location" class="accent">
+            {{ range .Locations }}
+            <p class="location">{{ . }}</p>
+            {{ end }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{{end}}

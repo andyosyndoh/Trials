@@ -1,0 +1,17 @@
+{{template "base" . }} {{define "css"}} 
+<link
+rel="stylesheet"
+href="/static/styles/about.css"
+/>
+{{end}} {{define "title"}} About {{end}} {{define "content"}} 
+<div class="container">
+  <div class="artist-info">
+    <h2>Artist Name</h2>
+    {{ range $key, $value := .DatesLocations }}
+    <p class="location">{{ $key }}: {{ range $index, $item := $value }} </p>
+    <p class="dates">{{ $item }} </p>
+    {{ end }}
+    {{ end }}
+  </div>
+</div>
+{{end}}

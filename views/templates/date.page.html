@@ -1,0 +1,27 @@
+{{template "base" . }} {{define "css"}} 
+<link
+rel="stylesheet"
+href="/static/styles/contact.css"
+/>
+{{end}} {{define "title"}} Contact {{end}} {{define "content"}} 
+<div class="container">
+    <div class="container">
+        <table>
+          <thead>
+            <tr>
+              <th>Dates</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Date" class="accent">
+                {{ range .Dates }}
+                <p class="date">{{ . }}</p>
+                {{ end }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>
+{{end}}
