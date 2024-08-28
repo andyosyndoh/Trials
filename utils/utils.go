@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"strings"
 )
 
 type Artists struct {
@@ -47,8 +46,9 @@ type ArtistDetails struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
+var RawDataMap map[string]json.RawMessage = make(map[string]json.RawMessage)
 
-const APIURL = "https://groupietrackers.herokuapp.com/api"
+const api = "https://groupietrackers.herokuapp.com/api"
 
 // GetAndUnmarshalArtists returns a list of artists by fetching or using cached data
 func GetArtists() ([]Artists, error) {
@@ -89,7 +89,7 @@ func GetDates(ID int) (Date, error) {
 
 func GetRelation(ID int) (ArtistDetails, error) {
 	relation := Relation{}
-	err := unmarshalData( "/relation", &relation)
+	err := unmarshalData("/relation", &relation)
 	if err != nil {
 		return ArtistDetails{}, err
 	}
@@ -103,16 +103,22 @@ func GetRelation(ID int) (ArtistDetails, error) {
 }
 
 func unmarshalData(endpoint string, out interface{}) error {
-	jsonData, err := getJSONData(endpoint)
-	if err != nil {
-		return err
+	if data, ok := RawDataMap[endpoint]; ok {
+		return json.Unmarshal(data, out)
+	} else {
+		jsonData, err := getJSONData(endpoint)
+		if err != nil {
+			return err
+		}
+	
+		RawDataMap[endpoint] = jsonData
+	
+		return json.Unmarshal(jsonData, out)
 	}
-
-	return json.Unmarshal(jsonData, out)
 }
 
 func getJSONData(endpoint string) (json.RawMessage, error) {
-	resp, err := http.Get(APIURL + endpoint)
+	resp, err := http.Get(api + endpoint)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get %s json data: %w", endpoint, err)
 	}
@@ -133,24 +139,12 @@ func getJSONData(endpoint string) (json.RawMessage, error) {
 
 // errors is a map of error output value in ErrorHandler
 var errors = map[string]string{
-	"colors":     "Usage: go run . [OPTION] [STRING]\n\nEX: go run . --color=<color> <substring to be colored> \"something\" standard",
-	"justify":    "Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard",
-	"color":      "🤯 Oops! We couldn't recognise your color\n\nKindly search supported colors here: https://htmlcolorcodes.com/",
-	"output":     "Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --output=<fileName.txt> something standard",
-	"txt":        "😣 Oops! We currently only support text files\n\nSee Documentation in: ../README.md",
 	"web":        "😮 Oops! Something went wrong",
 	"restricted": "😣 Oops! this is a restricted path.\nplease use another path.",
 }
 
 // ErrorHandler outputs errors and safely exits the program
 func ErrorHandler(errType string) {
-	if errType == "fatal" {
-		fmt.Printf("For color:\n%s\n", strings.Split(errors["colors"], "\n")[2])
-		fmt.Printf("For output:\n%s\n", strings.Split(errors["output"], "\n")[2])
-		fmt.Printf("For justify:\n%s\n", strings.Split(errors["justify"], "\n")[2])
-		fmt.Println("For web:\ngo run . -web")
-		os.Exit(0)
-	}
 	fmt.Println(errors[errType])
 	os.Exit(0)
 }
