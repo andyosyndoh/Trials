@@ -46,7 +46,7 @@ type ArtistDetails struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
-var RawDataMap map[string]json.RawMessage = make(map[string]json.RawMessage)
+var CacheDataMap map[string]json.RawMessage = make(map[string]json.RawMessage)
 
 const api = "https://groupietrackers.herokuapp.com/api"
 
@@ -103,7 +103,7 @@ func GetRelation(ID int) (ArtistDetails, error) {
 }
 
 func unmarshalData(endpoint string, out interface{}) error {
-	if data, ok := RawDataMap[endpoint]; ok {
+	if data, ok := CacheDataMap[endpoint]; ok {
 		return json.Unmarshal(data, out)
 	} else {
 		jsonData, err := getJSONData(endpoint)
@@ -111,7 +111,7 @@ func unmarshalData(endpoint string, out interface{}) error {
 			return err
 		}
 	
-		RawDataMap[endpoint] = jsonData
+		CacheDataMap[endpoint] = jsonData
 	
 		return json.Unmarshal(jsonData, out)
 	}

@@ -26,3 +26,7 @@ func main() {
 	}
 }
 
+// func InitializeData(){
+// 	endpoints := []string{"/arti"}
+// }
+
