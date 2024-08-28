@@ -63,8 +63,8 @@ func Location(w http.ResponseWriter, r *http.Request) {
 
 		location, err := utils.GetLocations(ID)
 		if err != nil {
-			http.Error(w, "Failed to retrieve relation data", http.StatusInternalServerError)
-			log.Printf("Error retrieving relation data: %v", err)
+			http.Error(w, "Failed to retrieve location data", http.StatusInternalServerError)
+			log.Printf("Error retrieving location data: %v", err)
 			return
 		}
 
@@ -94,8 +94,8 @@ func DateHandler(w http.ResponseWriter, r *http.Request) {
 
 		dates, err := utils.GetDates(ID)
 		if err != nil {
-			http.Error(w, "Failed to retrieve relation data", http.StatusInternalServerError)
-			log.Printf("Error retrieving relation data: %v", err)
+			http.Error(w, "Failed to retrieve date data", http.StatusInternalServerError)
+			log.Printf("Error retrieving date data: %v", err)
 			return
 		}
 
@@ -113,7 +113,7 @@ func RelationsHandler(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			http.Error(w, "Invalid ID", http.StatusBadRequest)
-			log.Printf("Error converting id param to int value: %v", err)
+			log.Printf("Error converting id to int value: %v", err)
 			return
 		}
 
