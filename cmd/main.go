@@ -19,7 +19,7 @@ func main() {
 		Handler: wrappedMux,
 	}
 
-	fmt.Println("=====================================\nserver running @http://localhost:8080")
+	fmt.Println("server running @http://localhost:8080\n=====================================")
 	err := server.ListenAndServe()
 	if err != nil {
 		utils.ErrorHandler("web")
