@@ -9,6 +9,20 @@ import (
 	"groupie/utils"
 )
 
+type ArtistDetails struct {
+	Art    utils.Artist        `json:"artist"`
+	Locations utils.Location      `json:"locations"`
+	Dates     utils.Date          `json:"dates"`
+	Relations utils.ArtistDetails `json:"relations"`
+}
+
+// type ArtistDetails struct {
+//     Art       utils.Artists  // This stores a single artist
+//     Locations utils.Locations      // Assuming it's a slice of strings, adjust as necessary
+//     Dates     utils.Dates      // Assuming it's a slice of strings, adjust as necessary
+//     Relations interface{}    // Adjust the type as necessary
+// }
+
 // HomeHandler handles the homepage route '/'
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
@@ -48,7 +62,6 @@ func Location(w http.ResponseWriter, r *http.Request) {
 		queryParams := r.URL.Query()
 		idValue := queryParams.Get("id")
 		ID, err := strconv.Atoi(idValue)
-
 		if err != nil {
 			http.Error(w, "Invalid ID", http.StatusBadRequest)
 			log.Printf("Error converting id param to int value: %v", err)
@@ -61,14 +74,25 @@ func Location(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		location, err := utils.GetLocations(ID)
+		location, _ := utils.GetLocations(ID)
+		artists, _ := utils.Getsingleartist(ID)
+		dates, _ := utils.GetDates(ID)
+		relations, err := utils.GetRelation(ID)
+
+		artistDetails := ArtistDetails{
+			Art:       utils.Artist{Index: []utils.Artists{artists}},  // Wrap single artist in a slice
+			Locations: location,
+			Dates:     dates,
+			Relations: relations,
+		}
+
 		if err != nil {
 			http.Error(w, "Failed to retrieve location data", http.StatusInternalServerError)
 			log.Printf("Error retrieving location data: %v", err)
 			return
 		}
 
-		renders.RenderTemplate(w, "location.page.html", location)
+		renders.RenderTemplate(w, "location.page.html", artistDetails)
 	} else {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
@@ -79,7 +103,6 @@ func DateHandler(w http.ResponseWriter, r *http.Request) {
 		queryParams := r.URL.Query()
 		idValue := queryParams.Get("id")
 		ID, err := strconv.Atoi(idValue)
-
 		if err != nil {
 			http.Error(w, "Invalid ID", http.StatusBadRequest)
 			log.Printf("Error converting id param to int value: %v", err)
@@ -110,7 +133,6 @@ func RelationsHandler(w http.ResponseWriter, r *http.Request) {
 		queryParams := r.URL.Query()
 		idValue := queryParams.Get("id")
 		ID, err := strconv.Atoi(idValue)
-
 		if err != nil {
 			http.Error(w, "Invalid ID", http.StatusBadRequest)
 			log.Printf("Error converting id to int value: %v", err)

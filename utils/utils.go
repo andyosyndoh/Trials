@@ -19,9 +19,14 @@ type Artists struct {
 	RelationsURL    string   `json:"relations"`
 }
 
+type Artist struct {
+	Index []Artists
+}
+
 type Locations struct {
 	Index []Location `json:"index"`
 }
+
 type Location struct {
 	ID        int      `json:"id"`
 	Locations []string `json:"locations"`
@@ -55,6 +60,24 @@ func GetArtists() ([]Artists, error) {
 	artists := []Artists{}
 	err := unmarshalData("/artists", &artists)
 	return artists, err
+}
+
+func Getsingleartist(ID int) (Artists, error) {
+    var art Artist  // art will store the data of all artists in the Index slice
+    err := unmarshalData("/artists", &art)  // Load the data into the Artist struct
+    if err != nil {
+        return Artists{}, err
+    }
+
+    // Iterate through the Index slice to find the artist with the matching ID
+    for _, v := range art.Index {
+        if v.ID == ID {  // Compare the given ID with the artist's ID
+            return v, nil  // Return the artist if found
+        }
+    }
+
+    // Return an error if the artist with the given ID is not found
+    return Artists{}, fmt.Errorf("Artist with ID %d not found", ID)
 }
 
 func GetLocations(ID int) (Location, error) {
@@ -110,9 +133,9 @@ func unmarshalData(endpoint string, out interface{}) error {
 		if err != nil {
 			return err
 		}
-	
+
 		CacheDataMap[endpoint] = jsonData
-	
+
 		return json.Unmarshal(jsonData, out)
 	}
 }
