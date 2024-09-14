@@ -19,17 +19,8 @@ Home
         <img src="{{ .ImageURL }}" alt="image">
         <div class="card-content">
           <h2>{{ .Name }}</h2>
-          <ul>
-            {{ range .Members }}
-            <li>{{ . }}</li>
-            {{ end }}
-            <p><b>Creation Date:</b> {{ .CreationDate }}</p>
-            <p><b>First Album:</b> {{ .FirstAlbum }}</p>
-          </ul>
           <div class="button-group">
             <button><a href="/locations?id={{ .ID }}" >Locations</a></button>
-            <button><a href="/dates?id={{ .ID }}" >Dates</a></button>
-            <button><a href="/relations?id={{ .ID }}" >Relation</a></button>
           </div>
         </div>
       </div>

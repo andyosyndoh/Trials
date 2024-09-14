@@ -1,77 +1,60 @@
 {{template "base" . }}
+
 {{define "css"}}
 <link rel="stylesheet" href="../static/styles/location.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
 {{end}}
+
 {{define "title"}}
 About
 {{end}}
+
 {{define "content"}}
 <div class="container">
-  <!-- Table for Artist Details -->
-  <div class="card">
-    <img src="{{ .Art.ImageURL }}" alt="image">
+  <!-- Artist Details Card -->
+  <div class="card artist-details-card">
+    <img src="{{ .Art.ImageURL }}" alt="Artist Image">
     <div class="card-content">
       <h2>{{ .Art.Name }}</h2>
       <ul>
-        {{ range .Art.Members }}
-        <li>{{ . }}</li>
-        {{ end }}
-        <p><b>Creation Date:</b> {{ .Art.CreationDate }}</p>
-        <p><b>First Album:</b> {{ .Art.FirstAlbum }}</p>
+        <li><b>Members:</b> {{ range .Art.Members }}{{ . }}, {{ end }}</li>
+        <li><b>Creation Date:</b> {{ .Art.CreationDate }}</li>
+        <li><b>First Album:</b> {{ .Art.FirstAlbum }}</li>
       </ul>
     </div>
   </div>
 
-  <!-- Table for Locations -->
-  <table>
-    <thead>
-      <tr>
-        <th>Locations</th>
-      </tr>
-    </thead>
-    <tbody id="locationdata">
-      {{range .Locations.Locations}}
-      <tr>
-        <td>{{.}}</td>
-      </tr>
-      {{end}}
-    </tbody>
-  </table>
+  <!-- Container for Location, Dates, and Relations Cards -->
+  <div class="card-container">
+    <!-- Locations Card -->
+    <div class="card locations-card">
+      <h3>Locations</h3>
+      <ul id="locationdata">
+        {{range .Locations.Locations}}
+        <li>{{.}}</li>
+        {{end}}
+      </ul>
+    </div>
 
-  <!-- Table for Dates -->
-  <table>
-    <thead>
-      <tr>
-        <th>Dates</th>
-      </tr>
-    </thead>
-    <tbody id="datesdata">
-      {{range .Dates.Dates}}
-      <tr>
-        <td>{{.}}</td>
-      </tr>
-      {{end}}
-    </tbody>
-  </table>
+    <!-- Dates Card -->
+    <div class="card dates-card">
+      <h3>Dates</h3>
+      <ul id="datesdata">
+        {{range .Dates.Dates}}
+        <li>{{.}}</li>
+        {{end}}
+      </ul>
+    </div>
 
-  <!-- Table for Relations -->
-  <table>
-    <thead>
-      <tr>
-        <th>Relations</th>
-      </tr>
-    </thead>
-    <tbody id="relationsdata">
-      {{range $location, $dates := .Relations.DatesLocations}}
-      <tr>
-        <td>{{ $location }}</td>
-        <td>{{range $dates}}{{.}} {{end}}</td>
-      </tr>
-      {{end}}
-    </tbody>
-  </table>
-
-  
-
+    <!-- Relations Card -->
+    <div class="card relations-card">
+      <h3>Relations</h3>
+      <ul id="relationsdata">
+        {{range $location, $dates := .Relations.DatesLocations}}
+        <li><b>{{ $location }}:</b> {{range $dates}}{{.}} {{end}}</li>
+        {{end}}
+      </ul>
+    </div>
+  </div>
 </div>
 {{end}}

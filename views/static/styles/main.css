@@ -1,31 +1,33 @@
-html,
+/* General Styles */
 body {
-	background-color: #333;
-	font-family: Arial, sans-serif;
-	text-align: center;
-	margin: 0;
-	padding: 0;
-	color: bisque;
-	font-size: 1.2rem;
-	height: 100vh;
+    background-color: #333;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: bisque;
+    font-size: 1.2rem;
+    height: 100vh;
 }
 
-h1,
-h2 {
-	color: bisque;
+h1, h2 {
+    color: #3f2403;
 }
 
 h1 {
-	padding: 20px;
-	margin-top: 60px;
+    padding: 20px;
+    margin-top: 60px;
 }
+
+/* Button Styles */
 .btn {
-	background-color: #235525;
-	text-decoration: none;
-	color: rgb(47, 109, 128);
+    background-color: #235525;
+    text-decoration: none;
+    color: rgb(47, 109, 128);
 }
+
 .btn:hover {
-	background-color: #5b7e5c;
-	color: blanchedalmond;
-	text-decoration: none;
+    background-color: #5b7e5c;
+    color: blanchedalmond;
+    text-decoration: none;
 }
