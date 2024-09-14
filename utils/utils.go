@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 type Artists struct {
@@ -63,21 +64,17 @@ func GetArtists() ([]Artists, error) {
 }
 
 func Getsingleartist(ID int) (Artists, error) {
-    var art Artist  // art will store the data of all artists in the Index slice
-    err := unmarshalData("/artists", &art)  // Load the data into the Artist struct
+    var art Artists  // art will store the data of all artists in the Index slice
+	Idstr := strconv.Itoa(ID)
+	fmt.Println(Idstr)
+    err := unmarshalData("/artists/"+Idstr, &art)  // Load the data into the Artist struct
     if err != nil {
         return Artists{}, err
     }
 
-    // Iterate through the Index slice to find the artist with the matching ID
-    for _, v := range art.Index {
-        if v.ID == ID {  // Compare the given ID with the artist's ID
-            return v, nil  // Return the artist if found
-        }
-    }
 
     // Return an error if the artist with the given ID is not found
-    return Artists{}, fmt.Errorf("Artist with ID %d not found", ID)
+    return art, nil
 }
 
 func GetLocations(ID int) (Location, error) {

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -10,7 +11,7 @@ import (
 )
 
 type ArtistDetails struct {
-	Art    utils.Artist        `json:"artist"`
+	Art       utils.Artists        `json:"artist"`
 	Locations utils.Location      `json:"locations"`
 	Dates     utils.Date          `json:"dates"`
 	Relations utils.ArtistDetails `json:"relations"`
@@ -80,11 +81,13 @@ func Location(w http.ResponseWriter, r *http.Request) {
 		relations, err := utils.GetRelation(ID)
 
 		artistDetails := ArtistDetails{
-			Art:       utils.Artist{Index: []utils.Artists{artists}},  // Wrap single artist in a slice
+			Art:       artists, // Wrap single artist in a slice
 			Locations: location,
 			Dates:     dates,
 			Relations: relations,
 		}
+
+		fmt.Println(artistDetails.Art)
 
 		if err != nil {
 			http.Error(w, "Failed to retrieve location data", http.StatusInternalServerError)

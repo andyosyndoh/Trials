@@ -43,6 +43,7 @@ func getTemplateCache() (map[string]*template.Template, error) {
 	templatesDir := filepath.Join(baseDir, "*.page.html")
 	pages, err := filepath.Glob(templatesDir)
 	if err != nil {
+		fmt.Println("here")
 		return myCache, fmt.Errorf("error globbing templates: %v", err)
 	}
 

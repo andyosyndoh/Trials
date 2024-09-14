@@ -1,25 +1,77 @@
-{{template "base" . }} {{define "css"}} 
-<link
-rel="stylesheet"
-href="../static/styles/location.css"
-/>
-{{end}} {{define "title"}} About {{end}} {{define "content"}} 
+{{template "base" . }}
+{{define "css"}}
+<link rel="stylesheet" href="../static/styles/location.css" />
+{{end}}
+{{define "title"}}
+About
+{{end}}
+{{define "content"}}
 <div class="container">
-    <table>
-      <thead>
-        <tr>
-          <th>Locations</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-label="Location" class="accent">
-            {{ range .Locations }}
-            <p class="location">{{ . }}</p>
-            {{ end }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Table for Artist Details -->
+  <div class="card">
+    <img src="{{ .Art.ImageURL }}" alt="image">
+    <div class="card-content">
+      <h2>{{ .Art.Name }}</h2>
+      <ul>
+        {{ range .Art.Members }}
+        <li>{{ . }}</li>
+        {{ end }}
+        <p><b>Creation Date:</b> {{ .Art.CreationDate }}</p>
+        <p><b>First Album:</b> {{ .Art.FirstAlbum }}</p>
+      </ul>
+    </div>
   </div>
+
+  <!-- Table for Locations -->
+  <table>
+    <thead>
+      <tr>
+        <th>Locations</th>
+      </tr>
+    </thead>
+    <tbody id="locationdata">
+      {{range .Locations.Locations}}
+      <tr>
+        <td>{{.}}</td>
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
+
+  <!-- Table for Dates -->
+  <table>
+    <thead>
+      <tr>
+        <th>Dates</th>
+      </tr>
+    </thead>
+    <tbody id="datesdata">
+      {{range .Dates.Dates}}
+      <tr>
+        <td>{{.}}</td>
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
+
+  <!-- Table for Relations -->
+  <table>
+    <thead>
+      <tr>
+        <th>Relations</th>
+      </tr>
+    </thead>
+    <tbody id="relationsdata">
+      {{range $location, $dates := .Relations.DatesLocations}}
+      <tr>
+        <td>{{ $location }}</td>
+        <td>{{range $dates}}{{.}} {{end}}</td>
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
+
+  
+
+</div>
 {{end}}
