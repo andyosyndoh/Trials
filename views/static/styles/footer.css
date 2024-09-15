@@ -30,16 +30,16 @@ svg {
 
 .author-name {
 	margin-top: 10px;
-	color: bisque;
+	color: 333;
 	font-size: 1.2em;
 }
 
 .my-footer {
-	background-color: #222;
+	background-color: #e6e6fa;
 	padding: 1% 20%;
 	margin: 0 auto;
 	text-align: center;
-	color: bisque;
+	color: 333;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -48,6 +48,6 @@ svg {
 }
 
 .my-footer svg {
-	fill: bisque;
+	fill: 333;
 	margin: 0 10px;
 }

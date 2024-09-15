@@ -1,17 +1,17 @@
 /* General Styles */
 body {
-    background-color: #333;
+    background-color: aliceblue;
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
-    color: bisque;
+    color: #333333;
     font-size: 1.2rem;
     height: 100vh;
 }
 
 h1, h2 {
-    color: #3f2403;
+    color: #333333;
 }
 
 h1 {

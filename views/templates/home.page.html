@@ -2,9 +2,9 @@
 
 {{define "css"}}
 <link
-	rel="stylesheet"
-	href="../static/styles/home.css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+    rel="stylesheet"
+    href="../static/styles/home.css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
 />
 {{end}}
 
@@ -13,17 +13,17 @@ Home
 {{end}}
 
 {{define "content"}}
-    <div class="grid-container">
-      {{ range . }}
-      <div class="card">
-        <img src="{{ .ImageURL }}" alt="image">
-        <div class="card-content">
-          <h2>{{ .Name }}</h2>
-          <div class="button-group">
-            <button><a href="/locations?id={{ .ID }}" >Locations</a></button>
-          </div>
-        </div>
+<div class="grid-container">
+  {{ range . }}
+  <!-- Make the whole card clickable by wrapping it in an <a> tag -->
+  <a href="/details?id={{ .ID }}" class="card-link">
+    <div class="card">
+      <img src="{{ .ImageURL }}" alt="image">
+      <div class="card-content">
+        <h2>{{ .Name }}</h2>
       </div>
-      {{ end }}
     </div>
+  </a>
+  {{ end }}
+</div>
 {{end}}

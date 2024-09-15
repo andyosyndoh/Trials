@@ -1,9 +1,10 @@
 /* General Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #e6e6fa;
   margin: 0;
   padding: 0;
+  color: #333; /* Set default text color to dark gray */
 }
 
 /* Container Styling */
@@ -15,12 +16,13 @@ body {
 
 /* Card Styles */
 .card {
-  background-color: #fff;
+  background-color: #afeeee;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin-bottom: 20px;
   padding: 15px;
+  color: #333; /* Text color inside cards */
 }
 
 /* Artist Details Card */
@@ -46,6 +48,7 @@ body {
 .artist-details-card h2 {
   font-size: 1.8rem;
   margin-top: 0;
+  color: #000; /* Set heading color to black */
 }
 
 .artist-details-card ul {
@@ -57,6 +60,7 @@ body {
 .artist-details-card li {
   margin-bottom: 10px;
   font-size: 1.2rem;
+  color: #333; /* Ensure list items are visible */
 }
 
 /* Card Container Styles */
@@ -70,15 +74,17 @@ body {
 .locations-card, .dates-card, .relations-card {
   flex: 1;
   min-width: 250px;
-  background-color: #fff;
+  background-color: #afeeee;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 15px;
+  color: #333; /* Text color inside cards */
 }
 
 .locations-card h3, .dates-card h3, .relations-card h3 {
   margin-top: 0;
   font-size: 1.3rem;
+  color: #000; /* Heading color */
 }
 
 ul {
@@ -88,22 +94,23 @@ ul {
 
 li {
   margin-bottom: 10px;
+  color: #333; /* Ensure list items are visible */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .card-container {
-      flex-direction: column;
+    flex-direction: column;
   }
 
   .artist-details-card {
-      flex-direction: column;
-      align-items: flex-start;
-      width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
   }
 
   .artist-details-card img {
-      margin-bottom: 15px;
-      margin-right: 0;
+    margin-bottom: 15px;
+    margin-right: 0;
   }
 }

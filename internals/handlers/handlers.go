@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -11,18 +10,11 @@ import (
 )
 
 type ArtistDetails struct {
-	Art       utils.Artists        `json:"artist"`
+	Art       utils.Artists       `json:"artist"`
 	Locations utils.Location      `json:"locations"`
 	Dates     utils.Date          `json:"dates"`
 	Relations utils.ArtistDetails `json:"relations"`
 }
-
-// type ArtistDetails struct {
-//     Art       utils.Artists  // This stores a single artist
-//     Locations utils.Locations      // Assuming it's a slice of strings, adjust as necessary
-//     Dates     utils.Dates      // Assuming it's a slice of strings, adjust as necessary
-//     Relations interface{}    // Adjust the type as necessary
-// }
 
 // HomeHandler handles the homepage route '/'
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
@@ -87,74 +79,13 @@ func Location(w http.ResponseWriter, r *http.Request) {
 			Relations: relations,
 		}
 
-		fmt.Println(artistDetails.Art)
-
 		if err != nil {
 			http.Error(w, "Failed to retrieve location data", http.StatusInternalServerError)
 			log.Printf("Error retrieving location data: %v", err)
 			return
 		}
 
-		renders.RenderTemplate(w, "location.page.html", artistDetails)
-	} else {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
-}
-
-func DateHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodGet {
-		queryParams := r.URL.Query()
-		idValue := queryParams.Get("id")
-		ID, err := strconv.Atoi(idValue)
-		if err != nil {
-			http.Error(w, "Invalid ID", http.StatusBadRequest)
-			log.Printf("Error converting id param to int value: %v", err)
-			return
-		}
-
-		if ID <= 0 || ID > 52 {
-			http.Error(w, "ID out of range", http.StatusBadRequest)
-			log.Printf("ID out of range: %d", ID)
-			return
-		}
-
-		dates, err := utils.GetDates(ID)
-		if err != nil {
-			http.Error(w, "Failed to retrieve date data", http.StatusInternalServerError)
-			log.Printf("Error retrieving date data: %v", err)
-			return
-		}
-
-		renders.RenderTemplate(w, "date.page.html", dates)
-	} else {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
-}
-
-func RelationsHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodGet {
-		queryParams := r.URL.Query()
-		idValue := queryParams.Get("id")
-		ID, err := strconv.Atoi(idValue)
-		if err != nil {
-			http.Error(w, "Invalid ID", http.StatusBadRequest)
-			log.Printf("Error converting id to int value: %v", err)
-			return
-		}
-
-		if ID <= 0 || ID > 52 {
-			http.Error(w, "ID out of range", http.StatusBadRequest)
-			log.Printf("ID out of range: %d", ID)
-			return
-		}
-
-		relation, err := utils.GetRelation(ID)
-		if err != nil {
-			http.Error(w, "Failed to retrieve relation data", http.StatusInternalServerError)
-			log.Printf("Error retrieving relation data: %v", err)
-			return
-		}
-		renders.RenderTemplate(w, "relation.page.html", relation)
+		renders.RenderTemplate(w, "details.page.html", artistDetails)
 	} else {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}

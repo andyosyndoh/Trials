@@ -10,10 +10,8 @@ import (
 
 // Allowed routes
 var allowedRoutes = map[string]bool{
-	"/":          true,
-	"/locations": true,
-	"/dates":     true,
-	"/relations": true,
+	"/":        true,
+	"/details": true,
 }
 
 // RouteChecker is a middleware that checkes allowed routes
@@ -42,15 +40,7 @@ func RegisterRoutes(mux *http.ServeMux) {
 		handlers.HomeHandler(w, r)
 	})
 
-	mux.HandleFunc("/locations", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/details", func(w http.ResponseWriter, r *http.Request) {
 		handlers.Location(w, r)
-	})
-
-	mux.HandleFunc("/dates", func(w http.ResponseWriter, r *http.Request) {
-		handlers.DateHandler(w, r)
-	})
-
-	mux.HandleFunc("/relations", func(w http.ResponseWriter, r *http.Request) {
-		handlers.RelationsHandler(w, r)
 	})
 }

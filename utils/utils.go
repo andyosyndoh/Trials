@@ -66,14 +66,11 @@ func GetArtists() ([]Artists, error) {
 func Getsingleartist(ID int) (Artists, error) {
     var art Artists  // art will store the data of all artists in the Index slice
 	Idstr := strconv.Itoa(ID)
-	fmt.Println(Idstr)
     err := unmarshalData("/artists/"+Idstr, &art)  // Load the data into the Artist struct
     if err != nil {
         return Artists{}, err
     }
 
-
-    // Return an error if the artist with the given ID is not found
     return art, nil
 }
 

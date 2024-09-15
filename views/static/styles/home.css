@@ -1,18 +1,9 @@
-/* General Styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-}
-
-/* Container for the Grid */
+/* Grid container for cards */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
-  justify-content: center;
 }
 
 /* Card Styles */
@@ -21,55 +12,36 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
 }
 
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Image Styles */
 .card img {
   width: 100%;
   height: auto;
-  display: block;
-}
-
-/* Card Content Styles */
-.card-content {
-  padding: 15px;
-  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 
 .card-content h2 {
-  font-size: 1.2rem;
-  margin: 0;
+  margin: 15px 0;
+  font-size: 1.5rem;
   color: #333;
 }
 
-/* Button Styles */
-.button-group {
-  margin-top: 10px;
-}
-
-.button-group button {
-  background-color: #235525;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  color: rgb(47, 109, 128);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.button-group button a {
+/* Make the anchor tag covering the entire card */
+.card-link {
   text-decoration: none;
-  color: inherit;
+  color: inherit; /* Inherit text color to ensure it doesn't look like a regular link */
+  display: block;
 }
 
-.button-group button:hover {
-  background-color: #5b7e5c;
-  color: blanchedalmond;
+.card-link:hover .card {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Button hover effect */
+.card:hover {
+  background-color: #f8f8f8;
 }

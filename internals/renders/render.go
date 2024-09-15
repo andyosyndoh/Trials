@@ -9,13 +9,6 @@ import (
 	"strings"
 )
 
-type FormData struct {
-	Body string
-}
-
-// Data is a global variable to hold the form data
-var Data FormData
-
 // functions is a map of template functions
 var functions = template.FuncMap{}
 
