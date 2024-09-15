@@ -62,7 +62,8 @@ func Location(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if ID <= 0 || ID > 52 {
-			http.Error(w, "ID out of range", http.StatusBadRequest)
+			BadRequestHandler(w, r)
+			// http.Error(w, "ID out of range", http.StatusBadRequest)
 			log.Printf("ID out of range: %d", ID)
 			return
 		}
