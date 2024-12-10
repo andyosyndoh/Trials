@@ -1,3 +1,3 @@
-module groupie
+module push
 
-go 1.18
+go 1.22.2
